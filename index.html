@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="">
+  <meta name="viewport" content="width=, initial-scale=">
+  <title></title>
+  <style>
+  #canvas{
+ background-color:black;
+}
+
+
+  </style>
+</head>
+<body>
+<canvas id = 'canvas' height = 600px width = 600px
+style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+
+ <canvas id = 'canvas3' height= 600px width = 600px
+ style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+</body>
+<script>
+var canvas = document.getElementById('canvas')
+var ctx = canvas.getContext('2d')
+var canvas3 = document.getElementById('canvas3') 
+var ctx3 = canvas3.getContext('2d')
+var component = new obstacle(200)
+// obstacles of first type
+function obstacle(y1){
+  this.centerx = 300;
+  this.centery = y1 ;
+  this.rotateAngle = 90* Math.PI / 180; 
+  this.rotateAngle2 = 1/2* Math.PI / 180; 
+  this. startAngle = 0 * Math.PI / 180; 
+  this.endAngle = 90 * Math.PI / 180; 
+  this. radius = 50;
+  this.speedY = 2
+  this.colours = ['#FF7F20','#38E7FC','#FD00F6','#BCFF2B']
+  this.newpos = function(){
+    this.centery += this.speedY
+  }
+    this.drawcircularobstacle = function (){
+    for (i = 0; i < 4; i++) { 
+                    ctx.strokeStyle = this.colours[i];
+                    
+                    ctx.lineWidth = 15 
+                    ctx.translate(300,this.centery);  
+                    ctx.rotate(90* Math.PI / 180);  
+                    ctx.translate(-300, -this.centery);
+                      
+                    ctx.beginPath();  
+                   
+                    ctx.arc(300,this.centery, 100,0 * Math.PI / 180, 90 * Math.PI / 180, false);  
+                    //ctx.closePath();  
+                    ctx.stroke();  
+                } 
+              
+                }
+  var step = 0
+  var ax =1
+  //first try
+  this.rotateobs = function(){
+     
+     //ctx.resetTransform()
+     ctx.clearRect(0,0,canvas.width,canvas.height);
+    
+     
+     ctx.translate(300, this.centery);  
+     ctx.rotate( 1* Math.PI / 180); 
+     //ctx.clearRect(0,0,canvas.width,canvas.height); 
+     ctx.translate(-300, -this.centery);
+     
+     //ctx.transform(1,0,0,1,0,2)
+     //ctx.transform(1,0,0,1,0,2)
+     //console.log(this.centery)
+     //ctx.clearRect(0,0,canvas.width,canvas.height);
+     //component.centery += 2
+     //ctx.clearRect(0,0,canvas.width,canvas.height);
+     component.drawcircularobstacle();
+     
+   //ctx.clearRect(0,0,canvas.width,canvas.height);
+     //component.newpos(); 
+     //ctx.clearRect(0,0,canvas.width,canvas.height);
+     //component.drawcircularobstacle();
+
+  }
+  // second try
+  this.move= function (){
+    ctx.resetTransform()
+     ctx.clearRect(0,0,canvas.width,canvas.height);
+     ctx.translate(0, ax*step);
+     
+     ctx.translate(300, this.centery);  
+     ctx.rotate( 1* Math.PI / 180); 
+     //ctx.clearRect(0,0,canvas.width,canvas.height); 
+     ctx.translate(-300, -this.centery);
+     component.drawcircularobstacle();
+     step = step +1
+
+  }}
+// functions to animate
+function draw(){
+ //ctx.clearRect(0,0,canvas.width,canvas.height);
+ component.rotateobs();
+ //component.move();
+ 
+ requestAnimationFrame(draw)}
+draw();
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//second type of obstacle
+/*function obstacle2 (side){
+  this.side = side;
+  this.colours = ['#FF7F20','#38E7FC','#FD00F6','#BCFF2B']
+  this.drawsquare = function(){
+    ctx3.moveTo(300-side/2,570-2*150); 
+    for (i = 0; i < 4; i++) {  
+    ctx3.strokeStyle =this.colours[i]; 
+    ctx3.lineWidth = 15 
+    ctx3.translate(300,300-side/2);  
+    ctx3.rotate(90* Math.PI / 180);  
+    ctx3.translate(-300,-300+side/2);
+                     
+    ctx3.beginPath();
+    ctx3.moveTo(300-side/2,570-2*150);   
+    ctx3.lineTo(300+side/2,570-2*150);
+                    
+    ctx3.closePath();  
+    ctx3.stroke();  
+                  
+            }}
+  this.squarerot = function (){
+   ctx3.translate(300,300-side/2);  
+   ctx3.rotate(1/2* Math.PI / 180);
+   ctx3.translate(-300,-300+side/2);
+   new obstacle2(200).drawsquare();            
+  }  
+}
+function squaremove(){
+ctx3.clearRect(0,0,canvas3.width,canvas3.height);
+new obstacle2(200).squarerot();
+requestAnimationFrame(squaremove);;
+}
+squaremove()*/
+
+</script>
+</html>
+
+
+
+
